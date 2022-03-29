@@ -1,7 +1,6 @@
 # Project: Predict survival of coronary artery disease patients for preemptive medical treatment
 
 Name: Michael Ng  
-Email: michaelng@raidenworks.com
 
 ## Folder structure  
 - `data` folder
@@ -111,3 +110,9 @@ This project requires **Python 3** and the following packages installed:
 * It would be useful to test the models on data from another hospital to minimise the impact on data entry/regime errors. 
 ***
 ## Updates
+* `plot_distrbution` method in `eda.ipynb` renamed to `histo_boxplot` and shifted to `plotter` package, submodule `plot_distribution.py`
+* in `__init__.py` of `plotter` package, import `histo_boxplot` to save typing submodule `plot_distribution`
+* reformatted `histo_boxplot` method to be compliant with PEP8, using `pycodestyle` check
+* added docstrings to `histo_boxplot` method
+* converted `histo_boxplot` method into `Distribution` class in submodule `plot_distribution.py` (retained `histo_boxplot` method for reference) - benefits are that metrics can now be assess as instance objects of `Distribution` class
+* added docstrings to `Distribution` class
