@@ -1,6 +1,6 @@
 # Project: Predict survival of coronary artery disease patients for preemptive medical treatment
 
-Name: Michael Ng
+Name: Michael Ng  
 Email: michaelng@raidenworks.com
 
 ## Folder structure  
