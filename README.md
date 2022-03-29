@@ -1,6 +1,6 @@
 # Project: Predict survival of coronary artery disease patients for preemptive medical treatment
 
-Name: Ng Chern Min  
+Name: Michael Ng
 Email: michaelng@raidenworks.com
 
 ## Folder structure  
@@ -109,3 +109,5 @@ This project requires **Python 3** and the following packages installed:
 ***
 ## Other considerations
 * It would be useful to test the models on data from another hospital to minimise the impact on data entry/regime errors. 
+***
+## Updates
