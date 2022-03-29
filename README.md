@@ -116,3 +116,4 @@ This project requires **Python 3** and the following packages installed:
 * added docstrings to `histo_boxplot` method
 * converted `histo_boxplot` method into `Distribution` class in submodule `plot_distribution.py` (retained `histo_boxplot` method for reference) - benefits are that metrics can now be assess as instance objects of `Distribution` class
 * added docstrings to `Distribution` class
+* in `eda.ipynb` "examining the impact of individual features on the predictions", made loop for generating individual feature's output plot
