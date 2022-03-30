@@ -38,17 +38,3 @@ i_seed = int(o_parameters['SEED'])
 # print('i_algo:', i_algo)
 # print('f_testsize:', f_testsize)
 # print('i_seed:', i_seed)
-
-# Get relative path of database file
-import os
-dir = os.path.dirname(os.getcwd()) # gets path one directory up
-s_fullpath = os.path.join(dir, 'data', s_dbname) # join subdirectorys with ',' instead of '/' as we want to be OS-independant
-
-# Connection object
-import sqlite3
-o_conn = sqlite3.connect(s_fullpath)
-
-# Create dataframe from database
-import pandas as pd
-s_SQLquery = 'SELECT * FROM ' + s_tablename
-df = pd.read_sql_query(s_SQLquery, o_conn)
