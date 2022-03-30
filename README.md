@@ -120,3 +120,4 @@ This project requires **Python 3** and the following packages installed:
 * [`eda.ipynb`] in cell with `features_dict`, add comments for all steps
 * [`readConfig_loadData.py`] Changed from using `ConfigParser()` methods of `get()`, `getint()`, `getfloat()`, to calling its self[key] (see https://docs.python.org/3/reference/datamodel.html#object.__getitem__)
 * [`plot_distribution.py`]: in `Distribution` class, removed redundant attributes and non-public methods
+* [`readConfig_loadData.py`]: `ConfigParser()` self[key] returns strings, need to explicitly typecast to other types when assigning to variables

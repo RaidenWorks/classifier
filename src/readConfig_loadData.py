@@ -21,20 +21,23 @@ s_features = o_parameters['FEATURES']
 ls_features = s_features.split(",")
 
 # Get value of 'ALGO'
-i_algo = o_parameters['ALGO']
+i_algo = int(o_parameters['ALGO'])
+# i_algo = o_config.getint('PARAM', 'ALGO')
 
 # Get value of 'TESTSIZE'
-f_testsize = o_parameters['TESTSIZE']
+f_testsize = float(o_parameters['TESTSIZE'])
+# f_testsize = o_config.getfloat('PARAM', 'TESTSIZE')
 
 # Get value of 'SEED'
-i_seed = o_parameters['SEED']
+i_seed = int(o_parameters['SEED'])
+# i_seed = o_config.getint('PARAM', 'SEED')
 
-# print('s_dbname:', s_dbname1)
-# print('s_tablename:', s_tablename1)
-# print('s_features:', ls_features1)
-# print('i_algo:', i_algo1)
-# print('f_testsize:', f_testsize1)
-# print('i_seed:', i_seed1)
+# print('s_dbname:', s_dbname)
+# print('s_tablename:', s_tablename)
+# print('s_features:', ls_features)
+# print('i_algo:', i_algo)
+# print('f_testsize:', f_testsize)
+# print('i_seed:', i_seed)
 
 # Get relative path of database file
 import os
