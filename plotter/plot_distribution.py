@@ -25,43 +25,18 @@ class Distribution:
         self.bin_number = bin_number
         self.width = width
         self.height = height
-        # pre-calculate metrics with non-public methods
-        self.mean = self._mean()
-        self.median = self._median()
-        self.mode = self._mode()
-        self.min = self._min()
-        self.max = self._max()
-        self.std = self._std()
-
-    # non-public method to return mean
-    def _mean(self):
-        return self.series.mean()
-
-    # non-public method to return median
-    def _median(self):
-        return self.series.median()
-
-    # non-public method to return mode
-    def _mode(self):
-        return self.series.mode()[0]
-
-    # non-public method to return minimum
-    def _min(self):
-        return self.series.min()
-
-    # non-public method to return maximum
-    def _max(self):
-        return self.series.max()
-
-    # non-public method to return standard deviation
-    def _std(self):
-        return self.series.std()
+        self.mean = self.series.mean()
+        self.median = self.series.median()
+        self.mode = self.series.mode()[0]
+        self.min = self.series.min()
+        self.max = self.series.max()
+        self.std = self.series.std()
 
     # public method to plot histogram and boxplot
     def histo_boxplot(self):
         # Create a figure
         fig, ax = plt.subplots(2, 1, figsize=(self.width, self.height))  # distribution and boxplot
-        # fig = plt.figure(figsize = (width, height))  # single distribution plot
+        # fig = plt.figure(figsize = (self.width, self.height))  # single distribution plot
 
         # Plot a histogram of specific column data
         ax[0].hist(self.series, bins=self.bin_number)
