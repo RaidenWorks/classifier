@@ -1,11 +1,5 @@
-################ Read config.ini and load SQL data ################
-from readConfig_loadData import *
-# print('s_dbname:',s_dbname)
-# print('s_tablename:',s_tablename)
-# print('s_features:',s_features)
-# print('i_algo:',i_algo)
-# print('f_testsize:',f_testsize)
-# print('i_seed:',i_seed)
+################ Read config.ini ################
+from read_config import *
 
 ################ Load SQL data ################
 import os

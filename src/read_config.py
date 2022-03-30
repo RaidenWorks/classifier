@@ -1,8 +1,6 @@
-# Purpose:   1. Read 'config.ini' and assign variables
-#            2. Read database and load to a dataframe
+# Purpose:   Read 'config.ini' and assign variables
 # Inputs:    /src/config.ini
-#            /data/*.db
-# Return:    Assigns globals - s_dbname, s_tablename, s_features, ls_features, i_algo, f_testsize, i_seed, df
+# Return:    Assigns globals - s_dbname, s_tablename, s_features, ls_features, i_algo, f_testsize, i_seed
 # Examples:  None
 # Notes:     Amend the 'config.ini' according to your database 
 
