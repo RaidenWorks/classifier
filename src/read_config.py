@@ -5,6 +5,7 @@
 # Notes:     Amend the 'config.ini' according to your database 
 
 import configparser
+
 o_config = configparser.ConfigParser()
 o_config.read('config.ini')
 o_database = o_config['DB']
@@ -13,9 +14,12 @@ o_parameters = o_config['PARAM']
 # Get database and table name from configuration file
 s_dbname = o_database['DBNAME']
 s_tablename = o_database['TABLENAME']
+# s_dbname = o_config.get('DB', 'DBNAME')
+# s_tablename = o_config.get('DB', 'TABLENAME')
 
 # Get value of 'FEATURES' and generate a list
 s_features = o_parameters['FEATURES']
+# s_features = o_config.get('PARAM', 'FEATURES')
 ls_features = s_features.split(",")
 
 # Get value of 'ALGO'

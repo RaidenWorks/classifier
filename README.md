@@ -123,3 +123,4 @@ This project requires **Python 3** and the following packages installed:
 * [`readConfig_loadData.py`]: `ConfigParser()` self[key] returns strings, need to explicitly typecast to other types when assigning to variables
 * [`readConfig_loadData.py`]: removed redundant SQL connection object code replicated in `run.py`
 * [`readConfig_loadData.py`]: renamed to `read_config.py` as SQL data loading is not within and to comply with PEP-8 naming convention; updated `run.py` import of this module
+* [`run.py`]: 'Load SQL data' and 'Load to dataframe' section moved to submodule `read_SQL.py` as `df_from_SQL` method

@@ -1,29 +1,9 @@
 ################ Read config.ini ################
 from read_config import *
 
-################ Load SQL data ################
-import os
-import sqlite3
-
-# Get relative path
-dir = os.path.dirname(os.getcwd()) # gets path one directory up
-fullpath = os.path.join(dir, 'data', s_dbname) # join subdirectorys with ',' instead of '/' as we want to be OS-independant
-
-# Connection object
-o_conn = sqlite3.connect(fullpath)
-
-# Cursor object (for executing SQL queries against database)
-cur = o_conn.cursor()
-
-# List table names
-cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
-# print(cur.fetchall())
-
-################ Load to dataframe ################
-import pandas as pd
-# s_tablename = 'survive' # change table name accordingly if not 'survive'
-s_SQLquery = 'SELECT * FROM ' + s_tablename
-df = pd.read_sql_query(s_SQLquery, o_conn) # create dataframe
+################ Load SQL to dataframe ################
+from read_SQL import *
+df = df_from_SQL(s_dbname, s_tablename)
 
 ################ Clean data ################
 df = df.dropna() # drop all rows with missing values
