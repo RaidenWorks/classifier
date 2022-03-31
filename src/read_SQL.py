@@ -24,13 +24,3 @@ def df_from_SQL(s_dbname, s_tablename):
     df = pd.read_sql_query(s_SQLquery, o_conn)
 
     return(df)
-
-# import configparser
-# o_config = configparser.ConfigParser()
-# o_config.read('config.ini')
-# o_database = o_config['DB']
-# o_parameters = o_config['PARAM']
-# s_dbname = o_database['DBNAME']
-# s_tablename = o_database['TABLENAME']
-
-# print(df_from_SQL(s_dbname, s_tablename).head)
