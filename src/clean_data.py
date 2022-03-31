@@ -1,4 +1,9 @@
 def clean_df(p_df):
+    """Remove and tranform data
+
+    :param p_df: dataframe to be actioned upon
+    :return p_df: transformed dataframe
+    """
     # we choose not to drop rows with the same ID, as we've seen from the EDA that they are different individuals
 
     # drop all rows with missing values
