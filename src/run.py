@@ -8,7 +8,7 @@ s_dbname, s_tablename, ls_features, i_algo, f_testsize, i_seed = \
     pop_config_values('config.ini')
 
 # Load SQL to dataframe
-df = df_from_SQL(s_dbname, s_tablename)
+df = df_from_SQL(s_dbname, s_tablename, ls_features)
 
 # Clean data
 df = clean_df(df)

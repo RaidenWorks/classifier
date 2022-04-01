@@ -132,3 +132,5 @@ This project requires **Python 3** and the following packages installed:
 * [`pipeline_classifier.py`]: reformatted methods to be compliant with PEP-8 using `pycodestyle` check
 * [`read_config.py`]: removed assignment to global variables and made into `pop_config_values` method, allowing clear visibility of where they are used in `run.py`
 * [`run.py`, `read_config.py`, `read_SQL.py`, `clean_data.py`, `pipeline_classifier.py`]: all modules final compliance with PEP-8 using `pycodestyle` check
+* [`read_config.py`] 'ALGO' and 'TESTSIZE' `config.ini` errorneous entries will raise ValueError
+* [`read_SQL.py`] 'FEATURES' `config.ini` errorneous entries will raise ValueError

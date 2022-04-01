@@ -3,7 +3,7 @@ import sqlite3
 import pandas as pd
 
 
-def df_from_SQL(s_dbname, s_tablename):
+def df_from_SQL(s_dbname, s_tablename, p_ls_features):
     """Load a SQL database into a pandas dataframe
 
     :param s_dbname: SQL database name
@@ -31,5 +31,11 @@ def df_from_SQL(s_dbname, s_tablename):
 
     # Generate the dataframe
     df = pd.read_sql_query(s_SQLquery, o_conn)
+
+    # Check that FEATURES entered in `config.ini` are present in SQL table
+    df_columns_list = [*df.columns]
+    for x in p_ls_features:  # iterate over list from `config.ini`
+        if x not in df_columns_list:  # if element not present in SQL table
+            raise ValueError('FEATURES is entered incorrectly, check again')
 
     return(df)
