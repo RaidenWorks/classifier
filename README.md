@@ -130,3 +130,5 @@ This project requires **Python 3** and the following packages installed:
 * [`pipeline_classifier.py`]: added option of JPG generation into `plot_model_output` method
 * [`run.py`, `eda.ipynb`]: updated calling of `pipeline_classifier` method
 * [`pipeline_classifier.py`]: reformatted methods to be compliant with PEP-8 using `pycodestyle` check
+* [`read_config.py`]: removed assignment to global variables and made into `pop_config_values` method, allowing clear visibility of where they are used in `run.py`
+* [`run.py`, `read_config.py`, `read_SQL.py`, `clean_data.py`, `pipeline_classifier.py`]: all modules final compliance with PEP-8 using `pycodestyle` check

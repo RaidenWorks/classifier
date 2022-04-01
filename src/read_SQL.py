@@ -5,14 +5,16 @@ import pandas as pd
 
 def df_from_SQL(s_dbname, s_tablename):
     """Load a SQL database into a pandas dataframe
-    
+
     :param s_dbname: SQL database name
     :param s_tablename: table name within SQL database
     :return df: dataframe from SQL database
     """
-    # Get relative path of database file
-    dir = os.path.dirname(os.getcwd())  # gets path one directory up
-    s_fullpath = os.path.join(dir, 'data', s_dbname)  # join subdirectorys with ',' instead of '/' as we want to be OS-independant
+    # Get relative path of database file (one directory up)
+    dir = os.path.dirname(os.getcwd())
+
+    # join directorys with ',' instead of '/' as we want to be OS-independant
+    s_fullpath = os.path.join(dir, 'data', s_dbname)
 
     # Connection object
     o_conn = sqlite3.connect(s_fullpath)
