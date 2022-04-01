@@ -10,9 +10,37 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_curve, confusion_matrix, accuracy_score, recall_score, precision_score, f1_score, roc_auc_score
+import os
+from datetime import datetime
 
-def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_testsize, p_i_seed):
 
+def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_testsize, p_i_seed, p_b_plot_output, p_b_save_jpg):
+    """
+    1. Separate features and labels
+    2. Split data into training set and test set
+    3. Select algorithm
+    4. Generate string list for Categorical Features from p_ls_features
+    5. Generate string list for Numeric Features from the difference
+    6. Generate a dynamic dictionary that updates the values when different sets of features are selected
+    7. Generate integer list for Numeric Features (needed for scaling pre-processing)
+    8. Generate integer list for Categorical Features (needed for one hot encoding pre-processing)
+    9. Define preprocessing for numeric columns (make them on the same scale)
+    10. Define preprocessing for categorical features (encode them)
+    11. Combine preprocessing steps
+    12. Create preprocessing and training pipeline
+    13. Fit the pipeline to train a logistic regression model on the training set
+    14. [Optional] Plot output of predictions on test data
+
+    :param p_ls_features: List of features
+    :param p_df_features: Dataframe of features
+    :param p_df_label: Dataframe of label
+    :param p_i_algo: Algorithm selected as an integer (refer to config.ini for valid inputs)
+    :param p_f_testsize: Testsize as a float (refer to config.ini for valid inputs)
+    :param p_i_seed: Random state seed as an integer (refer to config.ini for valid inputs)
+    :param p_b_plot_output: Bool to run model on test data and plot output
+    :param p_b_save_jpg: Bool to save output as a JPG in 'output' folder
+    :return model: model from the training
+    """
     # Separate features and labels
     X = p_df_features.values
     y = p_df_label.values
@@ -84,12 +112,41 @@ def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_
     # Fit the pipeline to train a logistic regression model on the training set
     model = pipeline.fit(X_train, (y_train))
 
+    # Plot output of predictions on test data
+    if(p_b_plot_output == True):
+        plot_model_output(model, s_algo, X_test, y_test, p_ls_features, p_f_testsize, p_i_seed, p_b_save_jpg)
+
+    return(model)
+
+
+def plot_model_output(p_model, p_s_algo, p_X_test, p_y_test, p_ls_features, p_f_testsize, p_i_seed, p_b_save_jpg):
+    """ Train on test data and plot results
+    # 1. Get predictions from test data
+    # 2. Calculate ROC curve
+    # 3. Format plots arrangement
+    # 4. Text display of selected Features shown in 1st subplot
+    # 5. Print input parameters in 1st subplot
+    # 6. Plot ROC curve in 2nd subplot
+    # 7. Plot Confusion Matrix in 3rd subplot
+    # 8. Print metrics in 4th subplot
+    # 9. [Optional] Save results as a JPG in 'output' folder
+
+    :param p_model: Trained ML model
+    :param p_s_algo: string of name of algorithm used
+    :param p_X_test: Features test data
+    :param p_y_test: Label test data
+    :param p_ls_features: List of features
+    :param p_f_testsize: Testsize as a float (refer to config.ini for valid inputs)
+    :param p_i_seed: Random state seed as an integer (refer to config.ini for valid inputs)
+    :param p_b_save_jpg: Bool to save output as a JPG in 'output' folder
+    :return void: plots results
+    """
     # Get predictions from test data
-    predictions = model.predict(X_test)
-    y_scores = model.predict_proba(X_test)
+    predictions = p_model.predict(p_X_test)
+    y_scores = p_model.predict_proba(p_X_test)
 
     # Calculate ROC curve
-    fpr, tpr, thresholds = roc_curve(y_test, y_scores[:,1])
+    fpr, tpr, thresholds = roc_curve(p_y_test, y_scores[:,1])
 
     # Format plots arrangement
     fig, ax = plt.subplots(nrows=1, ncols=4, figsize=(24, 6))
@@ -105,7 +162,7 @@ def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_
     padding_top_increment = 0.07
     ax[0].axis("off")
     ax[0].text(padding_left_Attrib, padding_top, 'Algorithm:', size=fontsize, va="top", ha="left")
-    ax[0].text(padding_left_Value, padding_top, s_algo, size=fontsize, va="top", ha="left")
+    ax[0].text(padding_left_Value, padding_top, p_s_algo, size=fontsize, va="top", ha="left")
     ax[0].text(padding_left_Attrib, padding_top-padding_top_increment, 'Test size:', size=fontsize, va="top", ha="left")
     ax[0].text(padding_left_Value, padding_top-padding_top_increment, '{:.2f}'.format(p_f_testsize), size=fontsize, va="top", ha="left")
     ax[0].text(padding_left_Attrib, padding_top-2*padding_top_increment, 'Seed:', size=fontsize, va="top", ha="left")
@@ -124,7 +181,7 @@ def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_
     ax[1].set_title('ROC Curve')
 
     # Plot Confusion Matrix in 3rd subplot
-    cf_matrix = confusion_matrix(y_test, predictions)
+    cf_matrix = confusion_matrix(p_y_test, predictions)
     group_names = ['True non-survivor','False survivor','False non-survivor','True survivor']
     group_counts = ["{0:0.0f}".format(value) for value in
                     cf_matrix.flatten()]
@@ -141,11 +198,11 @@ def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_
     hmap.yaxis.set_ticklabels(['non-survivor','survivor'])
 
     # Print metrics in 4th subplot
-    f_accuracy = accuracy_score(y_test, predictions)
-    f_recall = recall_score(y_test, predictions, zero_division=1)
-    f_precision = precision_score(y_test, predictions, zero_division=1)
-    f_f1score = f1_score(y_test, predictions, zero_division=1)
-    f_auc = roc_auc_score(y_test, y_scores[:,1])
+    f_accuracy = accuracy_score(p_y_test, predictions)
+    f_recall = recall_score(p_y_test, predictions, zero_division=1)
+    f_precision = precision_score(p_y_test, predictions, zero_division=1)
+    f_f1score = f1_score(p_y_test, predictions, zero_division=1)
+    f_auc = roc_auc_score(p_y_test, y_scores[:,1])
     s_auc = '{:.4f}'.format(f_auc) # save the string to be used as part of the JPG name
     fontsize = 14
     padding_left_Attrib = 0.15
@@ -164,4 +221,11 @@ def pipeline_classifier(p_ls_features, p_df_features, p_df_label, p_i_algo, p_f_
     ax[3].text(padding_left_Attrib, padding_top-4*padding_top_increment, 'AUC:', size=fontsize, va='top', ha='left')
     ax[3].text(padding_left_Value, padding_top-4*padding_top_increment, s_auc, size=fontsize, va='top', ha='left')
 
-    return(fig, s_auc) # we return the fig as we want to use it to save a JPG (otherwise this could be a void function)
+    # Save plot as JPG in output folder
+    if(p_b_save_jpg == True):
+        dt_string = datetime.now().strftime("%Y-%m-%d %H%M%S") # for prefixing datetime to file name
+        # filename = dt_string+' '+s_algo_dict[i_algo]+', AUC - '+s_auc+'.jpg' # AUC metric tag serves as a quick comparison between runs while seeing in the folder
+        filename = dt_string+' '+p_s_algo+', AUC - '+s_auc+'.jpg' # AUC metric tag serves as a quick comparison between runs while seeing in the folder
+        parentdirectory = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) # gets one directory up
+        outputdirectory = os.path.join(parentdirectory, 'output') # place JPGs in output folder one directory above where script is
+        fig.savefig(os.path.join(outputdirectory, filename), bbox_inches='tight', dpi=300)

@@ -125,3 +125,7 @@ This project requires **Python 3** and the following packages installed:
 * [`readConfig_loadData.py`]: renamed to `read_config.py` as SQL data loading is not within and to comply with PEP-8 naming convention; updated `run.py` import of this module
 * [`run.py`]: 'Load SQL data' and 'Load to dataframe' section moved to submodule `read_SQL.py` as `df_from_SQL` method
 * [`clean_data.py`]: 'Clean data' section in `run.py` made into a method and shifted to submodule `clean_data.py`; updated `run.py` import of this module
+* [`read_SQL.py`, `clean_data.py`]: added docstrings
+* [`pipeline_classifier.py`]: split `pipeline_classifier` method's output plotting and JPG generation into separate `plot_model_output` method; this permits `pipeline_classifier` method to simply output the trained model for other uses, and also allows `plot_model_output` to be used for other models
+* [`pipeline_classifier.py`]: added option of JPG generation into `plot_model_output` method
+* [`run.py`, `eda.ipynb`]: updated calling of `pipeline_classifier` method
