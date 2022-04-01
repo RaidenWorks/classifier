@@ -112,7 +112,7 @@ This project requires **Python 3** and the following packages installed:
 ## Updates
 * [`eda.ipynb`] `plot_distribution` method renamed to `histo_boxplot` and shifted to new `plotter` package, in submodule `plot_distribution.py`
 * [`plotter` package] in `__init__.py`, import `histo_boxplot` to save typing submodule `plot_distribution`
-* [`plotter` package] in submodule `plot_distribution.py`, reformatted `histo_boxplot` method to be compliant with PEP8 using `pycodestyle` check
+* [`plotter` package] in submodule `plot_distribution.py`, reformatted `histo_boxplot` method to be compliant with PEP-8 using `pycodestyle` check
 * [`plotter` package] in submodule `plot_distribution.py`, added docstrings to `histo_boxplot` method
 * [`plotter` package] in submodule `plot_distribution.py`, converted `histo_boxplot` method into `Distribution` class (retained `histo_boxplot` method for reference) - benefits are that metrics can now be accessed as instance objects of `Distribution` class
 * [`plotter` package] in submodule `plot_distribution.py`, added docstrings to `Distribution` class
@@ -129,3 +129,4 @@ This project requires **Python 3** and the following packages installed:
 * [`pipeline_classifier.py`]: split `pipeline_classifier` method's output plotting and JPG generation into separate `plot_model_output` method; this permits `pipeline_classifier` method to simply output the trained model for other uses, and also allows `plot_model_output` to be used for other models
 * [`pipeline_classifier.py`]: added option of JPG generation into `plot_model_output` method
 * [`run.py`, `eda.ipynb`]: updated calling of `pipeline_classifier` method
+* [`pipeline_classifier.py`]: reformatted methods to be compliant with PEP-8 using `pycodestyle` check
